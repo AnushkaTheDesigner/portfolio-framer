@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arjun | Thumbnail Designer</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0b0b;
+            --text: #f5f5f5;
+            --muted: rgba(255, 255, 255, 0.7);
+            --card: #141414;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #ff5a1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+            border-radius: 18px;
+            object-fit: cover;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        section {
+            padding: 7rem 6%;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: auto;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 6%;
+            backdrop-filter: blur(10px);
+            background: rgba(11, 11, 11, 0.75);
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.06em;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        .nav a:hover {
+            color: white;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 8rem;
+        }
+
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 9vw, 10rem);
+            line-height: 0.88;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            max-width: 1200px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            color: var(--muted);
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        .btn-group {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: black;
+        }
+
+        .hero-tags {
+            margin-top: 2rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.95rem;
+        }
+
+        .section-tag {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 7rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            margin-bottom: 4rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .portfolio-card {
+            overflow: hidden;
+            border-radius: 22px;
+            background: var(--card);
+        }
+
+        .portfolio-card img {
+            aspect-ratio: 16/10;
+            transition: transform 0.6s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.04);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .service-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            line-height: 0.95;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .service-card p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .why-section {
+            background: #050505;
+            border-radius: 30px;
+            margin: 0 3%;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .why-section p {
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact p {
+            max-width: 700px;
+            margin: 2rem auto;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 3rem 6%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-left h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .footer-left p {
+            color: rgba(255, 255, 255, 0.55);
+            margin-top: 0.4rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 900px) {
+            .nav {
+                display: none;
+            }
+
+            .portfolio-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: clamp(3rem, 16vw, 6rem);
+            }
+
+            section {
+                padding: 5rem 6%;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">ARJUN.</div>
+
+        <nav class="nav">
+            <a href="#portfolio">Work</a>
+            <a href="#services">Services</a>
+            <a href="#why">Why Me</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">
+                HIGH-CTR <br>
+                THUMBNAIL <br>
+                DESIGNER
+            </h1>
+
+            <p>
+                Modern, eye-catching thumbnails designed to grab attention, increase clicks, and help creators stand
+                out.
+            </p>
+
+            <div class="btn-group">
+                <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+                <a href="#contact" class="btn btn-secondary">Start A Project</a>
+            </div>
+
+            <div class="hero-tags">
+                Gaming • Commentary • Documentary • Entertainment
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <span class="section-tag">Featured Work</span>
+
+            <h2 class="section-title">
+                Thumbnail <br>
+                Designs
+            </h2>
+
+            <div class="portfolio-grid">
+
+                <div class="portfolio-card">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop"
+                        alt="Thumbnail">
+                </div>
+
+                <div class="portfolio-card">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1200&auto=format&fit=crop"
+                        alt="Thumbnail">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+
+            <span class="section-tag">Services</span>
+
+            <h2 class="section-title">
+                What I <br>
+                Do
+            </h2>
+
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <h3>YouTube <br> Thumbnails</h3>
+                    <p>
+                        Custom thumbnails designed to maximize clicks, curiosity, and viewer attention.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Gaming <br> Thumbnails</h3>
+                    <p>
+                        High-energy gaming thumbnails built for entertainment, streams, and viral content.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Commentary <br> & Docs</h3>
+                    <p>
+                        Story-driven thumbnails for commentary, documentary, and educational creators.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Thumbnail <br> Redesigns</h3>
+                    <p>
+                        Transform outdated thumbnails into modern, high-performing designs.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="why" class="why-section">
+        <div class="container why-grid">
+
+            <div>
+                <span class="section-tag">Why My Designs Work</span>
+
+                <h2 class="section-title">
+                    Designed <br>
+                    To Get <br>
+                    Clicks.
+                </h2>
+            </div>
+
+            <div>
+                <p>
+                    Great thumbnails aren't just about effects.
+                    <br><br>
+                    I focus on visual hierarchy, contrast, storytelling, and curiosity to create thumbnails people
+                    instantly notice in crowded YouTube feeds.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+
+            <span class="section-tag">Contact</span>
+
+            <h2 class="section-title">
+                Let's Work <br>
+                Together
+            </h2>
+
+            <p>
+                Need thumbnails that stand out and get clicks?
+                <br><br>
+                Let’s create something your audience can’t ignore.
+            </p>
+
+            <div class="btn-group" style="justify-content:center;">
+                <a href="#" class="btn btn-primary">Email Me</a>
+                <a href="#" class="btn btn-secondary">Twitter / X</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-left">
+            <h3>Arjun Singh</h3>
+            <p>Thumbnail Designer & Creative Developer</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
